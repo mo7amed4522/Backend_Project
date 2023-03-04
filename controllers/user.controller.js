@@ -3,11 +3,11 @@ const jwt = require('jsonwebtoken')
 const usermodel = require("../models/user.js")
 
 class userController {
-    static async create_user(req, res) {
+    static async Register(req, res) {
         const body = req.body
-        const salt = genSaltSync(10)
+        const salt = genSaltSync(15)
         body.password = hashSync(body.password, salt)
-        usermodel.create(body, (error, result) => {
+         usermodel.create(body, (error, result) => {
             if (error) {
                 console.log(error)
                 return res.status(500).json({
@@ -17,9 +17,9 @@ class userController {
             }
             return res.json({
                 success: 1,
-                data: result
+                data: result,
             })
-        })
+        }) 
     }
     static async login(req, res) {
         const body = req.body
