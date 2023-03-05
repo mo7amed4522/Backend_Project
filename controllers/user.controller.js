@@ -6,19 +6,33 @@ class userController {
     static async Register(req, res) {
         const body = req.body
         const salt = genSaltSync(15)
-        body.password = hashSync(body.password, salt)
-         usermodel.create(body, (error, result) => {
-            if (error) {
-                console.log(error)
-                return res.status(500).json({
-                    success: 0,
-                    massage: "db connection error"
-                })
+        await usermodel.getuserbyemail(body.email,(error,result)=>{
+            if(error){
+                 res.json({
+                    succes:0,
+                    data:error,
+                 });
             }
-            return res.json({
-                success: 1,
-                data: result,
-            })
+            if(result){
+                res.json({
+                    succes : 0 ,
+                    data: "eamil is already token",
+                });
+            }else{
+                body.password =hashSync(body.password, salt);
+                usermodel.create(body,(error,result)=>{
+                    if(error){
+                        return res.status(500).json({
+                            succes : 0,
+                            data: "Database connection Failer !!"
+                        });
+                    }
+                    return res.json({
+                        succes : 1,
+                        data: result,
+                    });
+                });
+            }
         }) 
     }
     static async login(req, res) {

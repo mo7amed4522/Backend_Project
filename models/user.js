@@ -21,7 +21,7 @@ class usermodel {
     }
 
     static async getuserbyemail(email, callback) {
-        db.query("select*from signin where email=?",
+        db.query("select*from users where email=?",
             [email],
             (error, result) => {
                 if (error) {
