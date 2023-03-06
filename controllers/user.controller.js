@@ -50,12 +50,13 @@ class userController {
             const results = compareSync(body.password, result.password);
             if (results) {
                 result.password = undefined;
-                const jsontoken = jwt.sign({ results: result }, "qwe123");
+                const jsontoken = jwt.sign({ results: result }, "qwe123",{
+                    expiresIn : "2h"
+                });
                 return res.json({
                     success: 1,
                     status: "login successfuly",
-                    data:req.body,
-                    token: jsontoken
+                    token:jsontoken
 
                 })
             }

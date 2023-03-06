@@ -1,7 +1,7 @@
 const db = require("../config/datatbase.js")
 class usermodel {
     static async create(data, callback) {
-        db.query(`insert into users values(?,?,?,?,?)`, [
+        db.query(`INSERT INTO users VALUES(?,?,?,?,?)`, [
             data.id,
             data.username,
             data.email,
@@ -21,7 +21,7 @@ class usermodel {
     }
 
     static async getuserbyemail(email, callback) {
-        db.query("select*from users where email=?",
+        db.query("SELCET * FROM users WHERE email=?",
             [email],
             (error, result) => {
                 if (error) {
@@ -34,7 +34,7 @@ class usermodel {
     }
 
     static async getalluser(callback) {
-        db.query("select*from signin",
+        db.query("SELECT * FROM users",
 
             (error, result) => {
                 if (error) {
