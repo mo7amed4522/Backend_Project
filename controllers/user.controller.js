@@ -6,34 +6,34 @@ class userController {
     static async Register(req, res) {
         const body = req.body
         const salt = genSaltSync(15)
-        await usermodel.getuserbyemail(body.email,(error,result)=>{
-            if(error){
-                 res.json({
-                    succes:0,
-                    data:error,
-                 });
-            }
-            if(result){
+        await usermodel.getuserbyemail(body.email, (error, result) => {
+            if (error) {
                 res.json({
-                    succes : 0 ,
+                    succes: 0,
+                    data: error,
+                });
+            }
+            if (result) {
+                res.json({
+                    succes: 0,
                     data: "eamil is already token",
                 });
-            }else{
-                body.password =hashSync(body.password, salt);
-                usermodel.create(body,(error,result)=>{
-                    if(error){
+            } else {
+                body.password = hashSync(body.password, salt);
+                usermodel.create(body, (error, result) => {
+                    if (error) {
                         return res.status(500).json({
-                            succes : 0,
+                            succes: 0,
                             data: "Database connection Failer !!"
                         });
                     }
                     return res.json({
-                        succes : 1,
+                        succes: 1,
                         data: result,
                     });
                 });
             }
-        }) 
+        })
     }
     static async login(req, res) {
         const body = req.body
@@ -50,13 +50,14 @@ class userController {
             const results = compareSync(body.password, result.password);
             if (results) {
                 result.password = undefined;
-                const jsontoken = jwt.sign({ results: result }, "qwe123",{
-                    expiresIn : "2h"
+                let jsontoken = jwt.sign({ results: result }, "qwe123", {
+                    expiresIn: "2h"
                 });
+                console.log(jsontoken);
                 return res.json({
                     success: 1,
                     status: "login successfuly",
-                    token:jsontoken
+                    token: jsontoken
 
                 })
             }
@@ -78,10 +79,10 @@ class userController {
             if (error) {
                 console.log("error", error)
             }
-             res.json({
-                succes:0,
-                data:result,
-             });
+            res.json({
+                succes: 0,
+                data: result,
+            });
 
         })
 

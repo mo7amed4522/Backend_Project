@@ -1,25 +1,28 @@
 const { verify, decode } = require("jsonwebtoken");
+const userController = require('../controllers/user.controller');
 class tokenVaild {
-    static  checkToken(req, res, next) {
+    static async checkToken(req, res, next) {
         let token = req.get("authorization");
-        if(token){
+        if (token) {
             token = token.slice(7);
-            verify(token, "qwe123", (err, decode)=>{
-                if(err){
+            verify(token, "qwe123", (err, decode) => {
+                if (err) {
                     res.json({
-                        success:0,
-                        data:"Invaild Token !!",
+                        success: 0,
+                        data: "Invaild Token !!",
                     });
-                }else{
+                } else {
                     next();
                 }
             });
-        }else{
+        } else {
             res.json({
                 success: 0,
                 data: "Access denied !! unautorized user",
             });
         }
     }
+
+
 }
 module.exports = tokenVaild;
