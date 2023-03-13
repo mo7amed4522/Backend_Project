@@ -1,13 +1,11 @@
 const db = require("../config/datatbase.js")
 class usermodel {
     static async create(data, callback) {
-        db.query(`INSERT INTO users VALUES(?,?,?,?,?,?)`, [
+        db.query(`INSERT INTO users VALUES(?,?,?)`, [
             data.id,
-            data.username,
             data.email,
             data.password,
-            data.phoneNumber,
-            data.role
+
 
         ],
             (error, result) => {

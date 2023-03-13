@@ -14,21 +14,20 @@ class userController {
                 });
             }
             if (result) {
-                res.json({
-                    succes: 0,
-                    data: "eamil is already token",
-                });
+               res.json({
+                success : 0
+               })
             } else {
                 body.password = hashSync(body.password, salt);
                 usermodel.create(body, (error, result) => {
                     if (error) {
                         return res.status(500).json({
-                            succes: 0,
-                            data: "Database connection Failer !!"
+                            success: 0,
+                            data: "Database connection Failed !!"
                         });
                     }
                     return res.json({
-                        succes: 1,
+                        success: 1,
                         data: result,
                     });
                 });
@@ -42,28 +41,27 @@ class userController {
                 console.log("error", error)
             }
             if (!result) {
-                res.json({
-                    succes: 0,
+               return res.json({
+                    success: 0,
                     data: "invalid email or password"
                 })
             }
             const results = compareSync(body.password, result.password);
             if (results) {
                 result.password = undefined;
-                let jsontoken = jwt.sign({ results: result }, "qwe123", {
+                let jsonwebtoken = jwt.sign({ results: result }, "qwe123", {
                     expiresIn: "2h"
                 });
-                console.log(jsontoken);
                 return res.json({
                     success: 1,
-                    status: "login successfuly",
-                    token: jsontoken
+                    status: "login successfully",
+                    token: jsonwebtoken
 
                 })
             }
             else {
                 res.json({
-                    succes: 0,
+                    success: 0,
                     massage: "invalid password"
                 })
             }
@@ -80,7 +78,7 @@ class userController {
                 console.log("error", error)
             }
             res.json({
-                succes: 0,
+                success: 0,
                 data: result,
             });
 
