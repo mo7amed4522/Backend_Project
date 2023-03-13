@@ -6,12 +6,12 @@ class hotelController{
         hotelModel.getallhotel((error,result)=>{
             if(error){
                 res.json({
-                    succes: 1,
+                    success: 1,
                     data: error,
                 })
             }
             res.json({
-                succes: 0,
+                success: 0,
                 data: result,
             })
         });

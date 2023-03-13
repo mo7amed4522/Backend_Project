@@ -1,5 +1,5 @@
 const db = require("../config/datatbase.js")
-class usermodel {
+class supermodel {
     static async create(data, callback) {
         db.query(`INSERT INTO users VALUES(?,?,?)`, [
             data.id,
@@ -47,4 +47,4 @@ class usermodel {
 
 
 }
-module.exports = usermodel
+module.exports = supermodel

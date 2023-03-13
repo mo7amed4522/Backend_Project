@@ -1,15 +1,15 @@
 const { genSaltSync, hashSync, compareSync } = require("bcrypt")
 const jwt = require('jsonwebtoken')
-const usermodel = require("../models/user.js")
+const supermodel = require("../models/user.js")
 
 class userController {
     static async Register(req, res) {
         const body = req.body
         const salt = genSaltSync(15)
-        await usermodel.getuserbyemail(body.email, (error, result) => {
+        await supermodel.getuserbyemail(body.email, (error, result) => {
             if (error) {
                 res.json({
-                    succes: 0,
+                    success: 0,
                     data: error,
                 });
             }
@@ -19,7 +19,7 @@ class userController {
                })
             } else {
                 body.password = hashSync(body.password, salt);
-                usermodel.create(body, (error, result) => {
+                supermodel.create(body, (error, result) => {
                     if (error) {
                         return res.status(500).json({
                             success: 0,
@@ -36,7 +36,7 @@ class userController {
     }
     static async login(req, res) {
         const body = req.body
-        usermodel.getuserbyemail(body.email, (error, result) => {
+        supermodel.getuserbyemail(body.email, (error, result) => {
             if (error) {
                 console.log("error", error)
             }
@@ -73,7 +73,7 @@ class userController {
 
     static async getalluser(req, res) {
         const body = req.body
-        usermodel.getalluser((error, result) => {
+        supermodel.getalluser((error, result) => {
             if (error) {
                 console.log("error", error)
             }

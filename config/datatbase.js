@@ -10,6 +10,6 @@ db.connect((error) => {
     if (error)
         console.log(error.stack)
     else
-        console.log('successs')
+        console.log('successes')
 });
 module.exports = db; 
