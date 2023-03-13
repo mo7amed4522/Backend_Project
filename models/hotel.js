@@ -1,4 +1,4 @@
-const db = require("../config/datatbase.js")
+const db = require("../config/database.js")
 class hotelModel {
     static async getallhotel(callback) {
         db.query("SELECT * FROM hotel",

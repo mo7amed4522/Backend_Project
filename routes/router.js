@@ -6,7 +6,7 @@ const tokenVaild = require("../auth/token_vaild.js");
 const upload = require('multer')();
 
 // =============== users ==============//
-router.post('/register', upload.any(), usercontroller.Register);
+router.post('/register', upload.any(), tokenVaild.checkToken,usercontroller.Register);
 router.post('/login', upload.any(), usercontroller.login);
 router.get('/getusers', upload.any(), tokenVaild.checkToken, usercontroller.getalluser);
 // =============== hotel ==============//

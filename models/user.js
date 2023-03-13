@@ -1,4 +1,4 @@
-const db = require("../config/datatbase.js")
+const db = require("../config/database.js")
 class supermodel {
     static async create(data, callback) {
         db.query(`INSERT INTO users VALUES(?,?,?)`, [

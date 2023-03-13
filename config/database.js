@@ -6,10 +6,5 @@ const db = mysql.createConnection({
     password: process.env.DB_PASS,
     database: process.env.MYSQL_DB
 });
-db.connect((error) => {
-    if (error)
-        console.log(error.stack)
-    else
-        console.log('successes')
-});
+
 module.exports = db; 
